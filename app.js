@@ -11,20 +11,22 @@ function newBook(title, author, numberOfPages,publishDate){
 }
 
 var library = function() {
-
-  }
+}
 
 
   library.prototype.myBookArray = new Array();
 
   library.prototype.addBook = function (book) {
-    for (var i = 0; i<this.myBookArray.length; i++){
-      if (this.myBookArray[i].title.indexOf(book.title) > -1) {
-        return false;
+    if (this.myBookArray.length){
+      for (var i = 0; i<this.myBookArray.length; i++){
+        if (book.title == this.myBookArray[i].title) {
+            return false;
       }
+        }   this.myBookArray.push(book);
+            return true;
+    } else {this.myBookArray.push(book);
+            return true;
     }
-    this.myBookArray.push(book);
-    return true;
 };
 
   library.prototype.removeBookByTitle = function (title) {
@@ -34,8 +36,9 @@ var library = function() {
         this.myBookArray.splice([i],1);
         return true;
       }
-    }
+
     return false;
+  }
 };
 
 
@@ -53,18 +56,89 @@ library.prototype.removeBookByAuthor = function (authorName) {
 };
 
 
-  library.prototype.getRandomBook = function (){};
-  library.prototype.getBookByTitle = function (){};
-  library.prototype.getBooksByAuthor = function (){};
-  library.prototype.getAuthors = function (){};
-  library.prototype.getRandomAuthorName = function (){};
+  library.prototype.getRandomBook = function (){
+    if (this.myBookArray.length) {
+    var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
+    return randomBook;
+  } return null;
+  };
 
-  var newLibrary = new library();
-  var book1 = new newBook("1987","George Orwell", 3, 1986);
-  var book2 = new newBook("Duck Farm","George Orwell", 3, 1986);
-  var book3 = new newBook("The Crucible","Arther Miller", 3, 1986);
-  var book4 = new newBook("Bling Money","George Orwell", 3, 1987);
-  var book5 = new newBook("Zen and the Art of Motorcycle Maintenance","", 3, 1986)
 
+
+  library.prototype.getBookByTitle = function (title){
+    var booksThatMatch = new Array();
+    for (var i = 0; i<this.myBookArray.length; i++){
+    var titleInLibrary = this.myBookArray[i].title
+      if (titleInLibrary.toLowerCase().match(title.toLowerCase()) !== null){
+      booksThatMatch.push(this.myBookArray[i]);
+      }
+    }
+    return booksThatMatch;
+  };
+
+  library.prototype.getBooksByAuthor = function (author){
+    var booksWithAuthorsThatMatch = new Array();
+    for (var i = 0; i<this.myBookArray.length; i++){
+    var authorInLibrary = this.myBookArray[i].author
+      if (authorInLibrary.toLowerCase().match(author.toLowerCase()) !== null){
+      booksWithAuthorsThatMatch.push(this.myBookArray[i]);
+      }
+    }
+    return booksWithAuthorsThatMatch;
+  };
+
+  library.prototype.addBooks = function (books){
+    var list = books;
+    for (var i=0; i< list.length; i++){
+      this.myBookArray.push(list[i]);
+
+    }return this.myBookArray;
+
+  }
+
+  library.prototype.getAuthors = function (){
+    var n = {};
+    var Authors=[];
+	for(var i = 0; i < this.myBookArray.length; i++)
+	{
+		if (!n[this.myBookArray[i].author]) //if n[this.myBookArray[i].author] does not exist
+		{
+			n[this.myBookArray[i].author] = true; //then add key/value pair of author:true to the n object
+			Authors.push(this.myBookArray[i].author); //and push, the author into the Authors array
+		} //do nothing
+	}
+	return Authors; //show authors
+
+  };
+
+
+  library.prototype.getRandomAuthorName = function (){
+    if (this.myBookArray.length) {
+
+    var randomNumberInArray = Math.floor(Math.random() * (this.myBookArray.length));
+    return this.myBookArray[randomNumberInArray].author;
+  } return null;
+
+  };
+
+  var gnewLibrary = new library();
+
+  var gbook1 = new newBook("1987","George Orwell", 3, 1986);
+  var gbook2 = new newBook("Duck Farm","George Orwell", 3, 1986);
+  var gbook3 = new newBook("The Crucible","Arther Miller", 3, 1986);
+  var gbook4 = new newBook("Bling Money","George Orwell", 3, 1987);
+  var gbook5 = new newBook("Zen and the Art of Motorcycle Maintenance","Robert M. Persig", 3, 1986);
+  var gbook6 = new newBook("The Crucified Church","Joel L. Rissinger", 500, 2010);
+  var gbook7 = new newBook("The Social Meaning of Money: Pin Money, Paychecks, Poor Relief, and Other Currencies", "Viviana A. Zelizer", 420,1997);
+
+  function addBooks(book){
+   this.gnewLibrary.addBook(gbook1);
+  //  this.gnewLibrary.addBook(gbook2);
+  //  this.gnewLibrary.addBook(gbook3);
+  //  this.gnewLibrary.addBook(gbook4);
+  //  this.gnewLibrary.addBook(gbook6);
+  //  this.gnewLibrary.addBook(gbook7);
+ }
+  this.addBooks();
   // var d = new Date(99, 5, 24);
   // //document.getElementById("demo").innerHTML = date
