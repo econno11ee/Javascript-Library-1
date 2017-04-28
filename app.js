@@ -30,26 +30,22 @@ var library = function() {
 };
 
   library.prototype.removeBookByTitle = function (title) {
-   for (var i = 0; i < this.myBookArray.length; i++){
-      //if (title == this.myBookArray[i].title) {
-      if (this.myBookArray[i].title.indexOf(title) > -1) {
-        this.myBookArray.splice([i],1);
+   for (var i = this.myBookArray.length-1; i >=0; i--){
+      if (title == this.myBookArray[i].title) {
+        this.myBookArray.splice([i],1);  //remove 1 book starting at index i
         return true;
       }
-
-    return false;
-  }
+  };return false;
 };
 
 
 
 library.prototype.removeBookByAuthor = function (authorName) {
     var booksRemoved = 0;
- for (var i = this.myBookArray.length-1; i>=0; i--){
+ for (var i = this.myBookArray.length-1; i>=0; i--){ //run backwards to make sure that it completes loop even when index
     if (authorName == this.myBookArray[i].author) {
-    //if (this.myBookArray[i].author.indexOf(author) > -1) {
     this.myBookArray.splice(i,1);
-    booksRemoved++;
+    booksRemoved++;                  //add to booksRemoved if an author matches but don't exit loop until all books are checked
   }
 } if (booksRemoved > 0) { return true;}
   return false;
@@ -68,8 +64,8 @@ library.prototype.removeBookByAuthor = function (authorName) {
   library.prototype.getBookByTitle = function (title){
     var booksThatMatch = new Array();
     for (var i = 0; i<this.myBookArray.length; i++){
-    var titleInLibrary = this.myBookArray[i].title
-      if (titleInLibrary.toLowerCase().match(title.toLowerCase()) !== null){
+    var titlesInLibrary = this.myBookArray[i].title
+      if (titlesInLibrary.toLowerCase().match(title.toLowerCase()) !== null){
       booksThatMatch.push(this.myBookArray[i]);
       }
     }
@@ -94,17 +90,11 @@ library.prototype.removeBookByAuthor = function (authorName) {
     for(var j = 0; j < this.myBookArray.length; j++)
     Titles.push(this.myBookArray[j].title);
     for (var i=0; i< listOfBooks.length; i++){
-       //for (var j=0; j< this.myBookArray.length; j++){
          if (Titles.indexOf(listOfBooks[i].title)>-1) {
          notAdded.push(listOfBooks[i]);
        } else{this.myBookArray.push(listOfBooks[i]);}}
-       return listOfBooks.length - notAdded.length;}
-
-
-
-
-
-
+       return listOfBooks.length - notAdded.length;
+  };
 
 
   library.prototype.getAuthors = function (){
@@ -144,9 +134,9 @@ library.prototype.removeBookByAuthor = function (authorName) {
   function addBooksOnPageLoad(book){
    this.gnewLibrary.addBook(gbook1);
    this.gnewLibrary.addBook(gbook2);
-  //  this.gnewLibrary.addBook(gbook3);
+  this.gnewLibrary.addBook(gbook3);
   //  this.gnewLibrary.addBook(gbook4);
-  //  this.gnewLibrary.addBook(gbook6);
+  this.gnewLibrary.addBook(gbook6);
   //  this.gnewLibrary.addBook(gbook7);
  }
   this.addBooksOnPageLoad();
