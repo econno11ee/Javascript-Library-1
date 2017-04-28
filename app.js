@@ -90,19 +90,20 @@ library.prototype.removeBookByAuthor = function (authorName) {
   library.prototype.addBooks = function (books){
     var listOfBooks = books;
     var notAdded = [];
-    //var listOfTitles = [];
+    var Titles=[];
+    for(var j = 0; j < this.myBookArray.length; j++)
+    Titles.push(this.myBookArray[j].title);
     for (var i=0; i< listOfBooks.length; i++){
-      //listOfTitles.push(listOfBooks[i].title);
-    //for (var x=0; x< listOfTitles.length; x++){
-       for (var j=0; j< this.myBookArray.length; j++){
-         if (listOfBooks[i].title == this.myBookArray[j].title) {
-             notAdded.push(listOfBooks[i]);
-             //break;
-       } this.myBookArray.push(listOfBooks[i]);
-     }
-               break;
+       //for (var j=0; j< this.myBookArray.length; j++){
+         if (Titles.indexOf(listOfBooks[i].title)>-1) {
+         notAdded.push(listOfBooks[i]);
+       } else{this.myBookArray.push(listOfBooks[i]);}}
+       return listOfBooks.length - notAdded.length;}
 
-   } return notAdded.length;}
+
+
+
+
 
 
 
