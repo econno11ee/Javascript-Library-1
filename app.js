@@ -110,11 +110,11 @@ library.prototype.addBooks = function (books) {
 
 
 library.prototype.getAuthors = function () {
-    var stagingObject = {}; //staging object searches for duplicates before passing authors to a new array
+    var filter = {}; //staging object searches for duplicates before passing authors to a new array
     var Authors=[];//new array of authors in library
 	  for(var i = 0; i < this.myBookArray.length; i++) {
-		    if (!stagingObject[this.myBookArray[i].author]) {//if this does not exist
-			       stagingObject[this.myBookArray[i].author] = true; //then add key/value pair of "author xyz" = true to the n object
+		    if (!filter[this.myBookArray[i].author]) {//if this does not exist
+			       filter[this.myBookArray[i].author] = true; //then add key/value pair of "author xyz" = true to the n object
 			       Authors.push(this.myBookArray[i].author); //and push, the author into the Authors array
 		    } //do nothing
 	  } return Authors; //show authors
@@ -140,12 +140,12 @@ var gbook7 = new newBook("The Social Meaning of Money: Pin Money, Paychecks, Poo
 
 
 function addBooksOnPageLoad(book) {
-//     this.gnewLibrary.addBook(gbook1);
-//     this.gnewLibrary.addBook(gbook2);
-//     this.gnewLibrary.addBook(gbook3);
-//     this.gnewLibrary.addBook(gbook4);
-//     this.gnewLibrary.addBook(gbook6);
-//     this.gnewLibrary.addBook(gbook7);
+    this.gnewLibrary.addBook(gbook1);
+    this.gnewLibrary.addBook(gbook2);
+    this.gnewLibrary.addBook(gbook3);
+    // this.gnewLibrary.addBook(gbook4);
+    // this.gnewLibrary.addBook(gbook6);
+    // this.gnewLibrary.addBook(gbook7);
 };
 this.addBooksOnPageLoad();
   // var d = new Date(99, 5, 24);
