@@ -1,0 +1,130 @@
+ html, body{
+   overflow-x: hidden;
+   background-color: #fafafa;
+ }
+
+ body, button  {
+   font-family: "Lato", Helvetica, Arial, sans-serif;
+   color:#333333;
+   margin-top; 0;
+ }
+
+
+
+
+ div {
+   box-sizing: border-box;
+ }
+
+ h1, h2, h3, h4, h5, h6 {
+   font-family: "Varela Round", Helvetica, Arial, sans-serif;
+ }
+
+ h1 {
+   font-size:36px;
+   color: #fafafa;
+   font-weight: normal;
+   text-align: center;
+   padding: 10px;
+   margin: auto;
+ }
+
+
+ p {
+   font-size:16px;
+   line-height: 19px;
+   font-weight: 100;
+ }
+
+ a {
+   color: #23AAE1;
+   text-decoration: none;
+   font-weight: 570;
+ }
+
+ ul, li {
+   list-style: none;
+   text-align: left;
+   padding: 0px;
+ }
+
+
+
+ /* HEADER */
+ header {
+   background-color: #262228;
+   padding: 10px 0px;
+   box-sizing: border-box;
+ }
+
+ header div {
+   height: 50px;
+
+ }
+ .flex-container {
+   display: flex;
+ }
+
+ .results {
+   border-right: solid;
+   border-color: #fafafa;
+   border-sizing: border-box;
+ }
+
+ .output {
+   margin-top: 5px;
+   height: 300px;
+ }
+
+ .library {
+   background-color: #FFCE00;
+   color: #262228;
+   min-height: 100%;
+   align-items: stretch;
+ }
+
+ .library ul {
+   padding: 15px;
+ }
+
+ .actions {
+   margin-top: 5px;
+   height:800px;
+ }
+
+ .add-book, .search-library, .remove-books {
+   align-items: stretch;
+   padding-top: 40px;
+ }
+
+ .add-book {
+   background-color: #262228;
+  }
+ .search-library{
+   background-color: #007849;
+   border-left:solid;
+   border-left-color: #fafafa;
+   border-right: solid;
+   border-right-color: #fafafa;
+ }
+ .remove-books{
+   background-color: #037584;
+ }
+
+ .btn-default {
+   border-style: none;
+   border-color: #262228;
+   background-color: #fafafa;
+   margin: auto;
+   padding: auto;
+   height: 35px;
+ }
+
+ .btn-space, .input-space {
+   margin: 5px 5px 5px 10px;
+ }
+
+ .btn-link {
+   color: #fafafa;
+   font-size: 16px;
+ }
