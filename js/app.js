@@ -172,7 +172,7 @@ library.prototype._getRandomBook = function () {
     if (this.myBookArray.length) {
         var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
         return randomBook;
-        $("#result").append("<li>" + title.val() + ": " +  author.val()  + ", " + numberOfPages.val() + ", " + publishDates.val() + "." + "</li>");
+        $("#results").append("<li>" + title.val() + ": " +  author.val()  + ", " + numberOfPages.val() + ", " + publishDates.val() + "." + "</li>");
     } return null;
 };
 
