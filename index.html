@@ -26,46 +26,47 @@
         <div class="col-md-8">
 
         </div>
-        <div class="col-md-4 library">
-          <ul>
-            <li>Book1</li>
-            <li>Book2</li>
+        <div class="col-md-4 library-wrapper">
+          <ul id="library"></ul>
         </div>
       </div>
     </section>
     <section class="container-fluid actions">
       <div class ="row flex-container actions">
         <div class="col-sm-6 col-md-4 add-book">
-          <form class="form-inline">
+          <div class="forms">
+          <p>Book 1</p>
+          <form class="form-inline add-books">
               <div class="form-group">
-                <input type="text" class="form-control input-space" placeholder="Title">
-                <input type="text" class="form-control input-space" placeholder="Author">
+                <input type="text" class="form-control input-space title" placeholder="Title">
+                <input type="text" class="form-control input-space author" placeholder="Author">
               </div>
               <div class="form-group">
-                  <input type="text" class="form-control input-space" placeholder="# of pages">
-                  <input type="text" class="form-control input-space" placeholder="publish date">
-              </div>
-              <div class ="form-group">
-                  <button type="button" class="btn-default btn-space">ADD BOOKS</button>
-                  <button type="button" class="btn-default btn-space">ADD MORE BOOKS</button>
+                  <input type="number" class="form-control input-space pages" placeholder="# of pages">
+                  <input type="date" class="form-control input-space pub-date" placeholder="publish date">
               </div>
           </form>
+        </div>
+          <div class ="form-group">
+              <button type="button" class="btn-default btn-space submit">ADD BOOKS</button>
+              <button type="button" class="btn-default btn-space add-forms">ADD MORE BOOKS</button>
+          </div>
         </div>
         <div class="col-sm-6 col-md-4 search-library">
           <div>
             <button type="button" class="btn-default">SEARCH LIBRARY</button>
             <ul>
-                <li><button type="button" class="btn btn-link">Random Title</button></li>
-                <li><button type="button" class=" btn btn-link">Random Author</button></li>
+                <li><button type="button" class="btn btn-link">RANDOM TITLE</button></li>
+                <li><button type="button" class=" btn btn-link">RANDOM AUTHOR</button></li>
             </ul>
             <form class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Title">
-                    <button type="button" class="btn-default btn-space">Search Title</button>
+                    <button type="button" class="btn-default btn-space">SEARCH TITLE</button>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Author">
-                    <button type="button" class="btn-default btn-space">Search Author</button>
+                    <button type="button" class="btn-default btn-space">SEARCH AUTHOR</button>
                 </div>
             </form>
           </div>
@@ -76,21 +77,20 @@
             <form class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Title">
-                    <button type="button" class="btn-default btn-space">Remove by Title</button>
+                    <button type="button" class="btn-default btn-space">REMOVE BY TITLE</button>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Author">
-                    <button type="button" class="btn-default btn-space">Remove by Author</button>
+                    <button type="button" class="btn-default btn-space">REMOVE BY AUTHOR</button>
                 </div>
             </form>
           </div>
-
-
       </div>
     </section>
     <footer>
 
     </footer>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
