@@ -2,7 +2,6 @@
 
 
 
-
 function newBook(title, author, numberOfPages,publishDate){
     this.title=title;
     this.author=author;
@@ -161,22 +160,41 @@ library.prototype.init = function(){
 };
 
 library.prototype._bindEvents = function(){
-  this.$submitBtn.on("click", $.proxy(this._addBooks, this));
+  this.$submitBtn.on("click", $.proxy(this._add, this));
   this.$addForm.on("click", $.proxy(this._addForm, this));
 };
 
-library.prototype._addBooks = function(){
+library.prototype._addBooks = function(arr){
+
+  var _self = this;
   $.each($("form.add-books"), function(index, value){
     var title = $(this).find(".title").val();
     var author = $(this).find(".author").val();
     var numberOfPages = $(this).find(".pages").val();
     var publishDate = $(this).find(".pub-date").val();
     if(title && author && numberOfPages && publishDate) {
-      $("#library").append("<li>" + title + ": " +  + author  + ", " + numberOfPages + ", " + publishDate + "." + "</li>");
+      $("#library").append("<li>" + title + ": " +  author  + ", " + numberOfPages + ", " + publishDate + "." + "</li>");
+
+      _self.addBook(book);
 
     }
   });
 };
+
+library.prototype._getValues = function (){
+  var books=[], arr2 = [], len;
+  $.each($(".aBooks input"),function(Index, val){
+        var vInput = $(this).val();
+		    books.push(vInput);
+  });
+
+  len = (books.length/4)-1;
+
+for(var i = 0; i <= len; i++){
+  arr2.push(books.splice(0,4));
+}
+return arr2;
+}
 
 library.prototype._addForm = function(){
   this.$formWrapper.append(this._formHTML);
@@ -184,14 +202,16 @@ library.prototype._addForm = function(){
 
 library.prototype._formHTML = function(){
   return '<br /><p>Book ' + ($("form.add-books").length + 1) + '</p><form class="form-inline add-books">'
-  + '<div class="form-group">' +
+  + '<div class="form-group aBooks">' +
     '<input type="text" class="form-control input-space" placeholder="title">' +
     '<input type="text" class="form-control input-space" placeholder="author">' +
     '</div>' +
-    '<div class="form-group">' +
-    '<input type="text" class="form-control input-space" placeholder="# of pages">' +
-    '<input type="text" class="form-control input-space" placeholder="Publish Date">' +
+    '<div class="form-group aBooks">' +
+    '<input type="number" class="form-control input-space" placeholder="# of pages">' +
+    '<input type="date" class="form-control input-space" placeholder="Publish Date">' +
     '</div>' + '</form>';
 };
 
-gnewLibrary.init();
+$(function(){
+  gnewLibrary.init();
+});
