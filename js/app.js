@@ -164,7 +164,7 @@ library.prototype._addBook = function (a) {
                 }
             }
             this.myBookArray.push(book);
-          //  this.$displayArea.append("<h2>Added Book</h2>"+"<li>" + book.title + "</li>");
+            $("#library").append("<li>" + title + ": " +  author  + ", " + numberOfPages + ", " + publishDate + "." + "</li>");
         }
         console.log(this.myBookArray);
         return alert("All fields must be filled out. Please check book fields");
@@ -176,7 +176,6 @@ library.prototype._addBooks = function(arr){
 		this._addBook(aVals[i]);
 	}
 };
-
 
 library.prototype._getArrayValues = function (){
   var books=[], arr2 = [], len;
