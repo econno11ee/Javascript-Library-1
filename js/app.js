@@ -15,21 +15,6 @@ var library = function() {
 
 library.prototype.myBookArray = new Array();
 
-library.prototype.addBook = function (book) {
-    //check if library has books before running the loop
-    if (this.myBookArray.length){
-        for (var i = 0; i<this.myBookArray.length; i++) {
-            if (book.title == this.myBookArray[i].title) {
-                //stops loop if there is a match
-                return false;
-            }
-        } //add book only after for loop is complete
-          this.myBookArray.push(book);                      //after checking against all titles in library without a match, add the book
-          return true;                                      //stop
-    } else {this.myBookArray.push(book);                  //if library is empty add the book
-        return true;                                        //stop
-    }
-};
 
 library.prototype.removeBookByTitle = function (title) {
     for (var i = this.myBookArray.length-1; i >=0; i--) {
@@ -137,7 +122,7 @@ var gbook5 = new newBook("Zen and the Art of Motorcycle Maintenance","Robert M. 
 var gbook6 = new newBook("The Crucified Church","Joel L. Rissinger", 500, "2010/02/01");
 var gbook7 = new newBook("The Social Meaning of Money: Pin Money, Paychecks, Poor Relief, and Other Currencies", "Viviana A. Zelizer", 420,"1997/08/30");
 
-
+/*
 function addBooksOnPageLoad(book) {
     this.gnewLibrary.addBook(gbook1);
     this.gnewLibrary.addBook(gbook2);
@@ -147,6 +132,7 @@ function addBooksOnPageLoad(book) {
     // this.gnewLibrary.addBook(gbook7);
 };
 this.addBooksOnPageLoad();
+*/
   // var d = new Date(99, 5, 24);
   // //document.getElementById("demo").innerHTML = date
 
@@ -160,28 +146,39 @@ library.prototype.init = function(){
 };
 
 library.prototype._bindEvents = function(){
-  this.$submitBtn.on("click", $.proxy(this._add, this));
+  this.$submitBtn.on("click", $.proxy(this._addBooks, this));
   this.$addForm.on("click", $.proxy(this._addForm, this));
 };
 
-library.prototype._addBooks = function(arr){
+library.prototype._addBook = function (a) {
 
-  var _self = this;
-  $.each($("form.add-books"), function(index, value){
-    var title = $(this).find(".title").val();
-    var author = $(this).find(".author").val();
-    var numberOfPages = $(this).find(".pages").val();
-    var publishDate = $(this).find(".pub-date").val();
-    if(title && author && numberOfPages && publishDate) {
-      $("#library").append("<li>" + title + ": " +  author  + ", " + numberOfPages + ", " + publishDate + "." + "</li>");
+    var aVals = a;
+    	if (aVals.length >= 4){
 
-      _self.addBook(book);
+    		var book = new newBook(aVals[0],aVals[1],aVals[2],aVals[3]);
 
-    }
-  });
+            for(var i = 0; i < this.myBookArray.length; i++){
+                if(this.myBookArray[i].title == book.title) {
+                    alert("Book already exists.");
+    				        return false;
+                }
+            }
+            this.myBookArray.push(book);
+          //  this.$displayArea.append("<h2>Added Book</h2>"+"<li>" + book.title + "</li>");
+        }
+        console.log(this.myBookArray);
+        return alert("All fields must be filled out. Please check book fields");
 };
 
-library.prototype._getValues = function (){
+library.prototype._addBooks = function(arr){
+  var aVals = this._getArrayValues();
+	for(var i=0; i < aVals.length; i++){
+		this._addBook(aVals[i]);
+	}
+};
+
+
+library.prototype._getArrayValues = function (){
   var books=[], arr2 = [], len;
   $.each($(".aBooks input"),function(Index, val){
         var vInput = $(this).val();
