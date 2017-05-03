@@ -43,12 +43,7 @@ library.prototype.removeBookByAuthor = function (authorName) {
 };
 
 
-library.prototype.getRandomBook = function () {
-    if (this.myBookArray.length) {
-        var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
-        return randomBook;
-    } return null;
-};
+
 
 
 library.prototype.getBookByTitle = function (title) {
@@ -74,24 +69,6 @@ library.prototype.getBooksByAuthor = function (author) {
     return booksWithAuthorsThatMatch;
 };
 
-library.prototype.addBooks = function (books) {
-    var listOfBooks = books;
-    var notAdded = [];
-    //convert library to array of titles
-    var Titles=[];
-    for (var j = 0; j < this.myBookArray.length; j++) {
-        Titles.push(this.myBookArray[j].title);
-    }   //check the index of each title of each book you are adding
-        //against the array of titles in the library. Add each book
-        //with no match to the library and each book with a match to the Not Added list
-    for (var i=0; i< listOfBooks.length; i++) {
-        if (Titles.indexOf(listOfBooks[i].title)>-1) {
-              notAdded.push(listOfBooks[i]);
-        } else {this.myBookArray.push(listOfBooks[i]);}
-    } //compare length of books you tried to add to books not added to get # of books added
-    return listOfBooks.length - notAdded.length;
-};
-
 
 library.prototype.getAuthors = function () {
     var filter = {}; //staging object searches for duplicates before passing authors to a new array
@@ -112,40 +89,25 @@ library.prototype.getRandomAuthorName = function () {
     } return null;
 };
 
-var gnewLibrary = new library();
 
-var gbook1 = new newBook("1987","George Orwell", 3, "1986/03/25");
-var gbook2 = new newBook("Duck Farm","George Orwell", 3, "1986/01/20");
-var gbook3 = new newBook("The Crucible","Arther Miller", 3, "1886/04/20");
-var gbook4 = new newBook("Bling Money","George Orwell", 3, "1987/04/01");
-var gbook5 = new newBook("Zen and the Art of Motorcycle Maintenance","Robert M. Persig", 3, "1986/11/15");
-var gbook6 = new newBook("The Crucified Church","Joel L. Rissinger", 500, "2010/02/01");
-var gbook7 = new newBook("The Social Meaning of Money: Pin Money, Paychecks, Poor Relief, and Other Currencies", "Viviana A. Zelizer", 420,"1997/08/30");
 
-/*
-function addBooksOnPageLoad(book) {
-    this.gnewLibrary.addBook(gbook1);
-    this.gnewLibrary.addBook(gbook2);
-    this.gnewLibrary.addBook(gbook3);
-    // this.gnewLibrary.addBook(gbook4);
-    // this.gnewLibrary.addBook(gbook6);
-    // this.gnewLibrary.addBook(gbook7);
-};
-this.addBooksOnPageLoad();
-*/
   // var d = new Date(99, 5, 24);
   // //document.getElementById("demo").innerHTML = date
 
 
 
 library.prototype.init = function(){
+  this.$randomBook = $("button.randomB");
+  this.$randomAuthor = $("button.randomA");
   this.$submitBtn = $("button.submit");
   this.$addForm = $("button.add-forms");
   this.$formWrapper = $("div.forms");
   this._bindEvents();
+  this.addBooksOnPageLoad();
 };
 
 library.prototype._bindEvents = function(){
+  this.$addForm.on("click", $.proxy(this._getRandomBook, this));
   this.$submitBtn.on("click", $.proxy(this._addBooks, this));
   this.$addForm.on("click", $.proxy(this._addForm, this));
 };
@@ -155,7 +117,7 @@ library.prototype._addBook = function (a) {
     var aVals = a;
     	if (aVals.length >= 4){
 
-    		var book = new newBook(aVals[0],aVals[1],aVals[2],aVals[3]);
+    		var book = new newBook(aVals[0], aVals[1], aVals[2], aVals[3]);
 
             for(var i = 0; i < this.myBookArray.length; i++){
                 if(this.myBookArray[i].title == book.title) {
@@ -164,13 +126,11 @@ library.prototype._addBook = function (a) {
                 }
             }
             this.myBookArray.push(book);
-            $("#library").append("<li>" + title + ": " +  author  + ", " + numberOfPages + ", " + publishDate + "." + "</li>");
+            $("#library").append("<li>" + book.title + ": " +  book.author  + ", " + book.numberOfPages + ", " + book.publishDates + "." + "</li>");
         }
-        console.log(this.myBookArray);
-        return alert("All fields must be filled out. Please check book fields");
 };
 
-library.prototype._addBooks = function(arr){
+library.prototype._addBooks = function(){
   var aVals = this._getArrayValues();
 	for(var i=0; i < aVals.length; i++){
 		this._addBook(aVals[i]);
@@ -206,6 +166,34 @@ library.prototype._formHTML = function(){
     '<input type="number" class="form-control input-space" placeholder="# of pages">' +
     '<input type="date" class="form-control input-space" placeholder="Publish Date">' +
     '</div>' + '</form>';
+};
+
+library.prototype._getRandomBook = function () {
+    if (this.myBookArray.length) {
+        var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
+        return randomBook;
+        $("#result").append("<li>" + title.val() + ": " +  author.val()  + ", " + numberOfPages.val() + ", " + publishDates.val() + "." + "</li>");
+    } return null;
+};
+
+var gnewLibrary = new library();
+
+var gbook1 = ["1987","George Orwell", 3, "1986/03/25"];
+var gbook2 = ["Duck Farm","George Orwell", 3, "1986/01/20"];
+var gbook3 = ["The Crucible","Arther Miller", 3, "1886/04/20"];
+var gbook4 = ["Bling Money","George Orwell", 3, "1987/04/01"];
+var gbook5 = ["Zen and the Art of Motorcycle Maintenance","Robert M. Persig", 3, "1986/11/15"];
+var gbook6 = ["The Crucified Church","Joel L. Rissinger", 500, "2010/02/01"];
+var gbook7 = ["The Social Meaning of Money: Pin Money, Paychecks, Poor Relief, and Other Currencies", "Viviana A. Zelizer", 420,"1997/08/30"];
+
+
+library.prototype.addBooksOnPageLoad = function(){
+    this._addBook(gbook1);
+    this._addBook(gbook2);
+    this._addBook(gbook3);
+    // this.gnewLibrary.addBook(gbook4);
+    // this.gnewLibrary.addBook(gbook6);
+    // this.gnewLibrary.addBook(gbook7);
 };
 
 $(function(){
