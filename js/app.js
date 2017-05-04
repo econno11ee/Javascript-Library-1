@@ -133,7 +133,8 @@ library.prototype._addBooks = function(){
     }
     for(var j=0; j < books.length; j++){
 		    this._addBook(books[j]);
-        $("#results").append("<li id='results'>" + this.booksAdded + " were added to the library!</li>");
+        _self =this;
+        $("#results").append("<li id='results'>" + _self.booksAdded + " were added to the library!</li>");
 	     }
 };
 
