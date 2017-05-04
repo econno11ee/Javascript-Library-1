@@ -103,15 +103,17 @@ library.prototype._showBooks = function(){
 };
 
 library.prototype._addBook = function (books) {
+    booksAdded =[]
     if (books.length >= 4){
         var book = new newBook(books[0], books[1], books[2], books[3]);
         for(var i = 0; i < this.myBookArray.length; i++){
             if(this.myBookArray[i].title == book.title) {
-                    $("#results").replaceWith("<li id='results'>This books is already in the library!</li>");
-    				        return false;
+                $("#results").replaceWith("<li id='results'>" + book.title + " is already in the library!</li>");
+    				    return false;
                 }
             }
             this.myBookArray.push(book);
+            booksAdded.push(book.title);
             return this._showBooks();
         }
 };
@@ -131,6 +133,7 @@ library.prototype._addBooks = function(){
     }
     for(var j=0; j < books.length; j++){
 		    this._addBook(books[j]);
+        $("#results").append("<li id='results'>" + this.booksAdded + " were added to the library!</li>");
 	     }
 };
 
