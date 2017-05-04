@@ -16,16 +16,6 @@ var library = function() {
 library.prototype.myBookArray = new Array();
 
 
-library.prototype.removeBookByTitle = function (title) {
-    for (var i = this.myBookArray.length-1; i >=0; i--) {
-        if (title == this.myBookArray[i].title) {
-            //remove 1 book starting at index i
-            this.myBookArray.splice([i],1);
-            return true;
-        }
-    }   //complete the loop before returning false
-        return false;
-};
 
 
 
@@ -82,12 +72,6 @@ library.prototype.getAuthors = function () {
 };
 
 
-library.prototype.getRandomAuthorName = function () {
-    if (this.myBookArray.length) {
-        var randomNumberInArray = Math.floor(Math.random() * (this.myBookArray.length));
-        return this.myBookArray[randomNumberInArray].author;
-    } return null;
-};
 
 
 
@@ -97,19 +81,25 @@ library.prototype.getRandomAuthorName = function () {
 
 
 library.prototype.init = function(){
-  this.$randomBook = $("button.randomB");
-  this.$randomAuthor = $("button.randomA");
-  this.$submitBtn = $("button.submit");
-  this.$addForm = $("button.add-forms");
-  this.$formWrapper = $("div.forms");
   this._bindEvents();
   this.addBooksOnPageLoad();
+  this._showBooks();
 };
 
 library.prototype._bindEvents = function(){
-  this.$addForm.on("click", $.proxy(this._getRandomBook, this));
-  this.$submitBtn.on("click", $.proxy(this._addBooks, this));
-  this.$addForm.on("click", $.proxy(this._addForm, this));
+  $(".remove-author").on("click", $.proxy(this._removeBookByAuthor, this));
+  $(".remove-title").on("click", $.proxy(this._removeBookByTitle, this));
+  $("button.randomA").on("click", $.proxy(this._getRandomAuthor, this));
+  $("button.randomB").on("click", $.proxy(this._getRandomBook, this));
+  $("button.submit").on("click", $.proxy(this._addBooks, this));
+  $("button.add-forms").on("click", $.proxy(this._addForm, this));
+};
+
+library.prototype._showBooks = function(){
+	$("#library").empty();
+	this.myBookArray.forEach(function(book){
+	$("#library").append("<li class='display'><strong>" + book.title + "</strong>: " +  "<em>" + book.author + "</em>" + ", " + book.numberOfPages + ", " + "&copy;" + book.publishDates.getFullYear() + "</li>");
+	});
 };
 
 library.prototype._addBook = function (a) {
@@ -126,9 +116,11 @@ library.prototype._addBook = function (a) {
                 }
             }
             this.myBookArray.push(book);
-            $("#library").append("<li>" + book.title + ": " +  book.author  + ", " + book.numberOfPages + ", " + book.publishDates + "." + "</li>");
+            return this._showBooks();
         }
 };
+
+
 
 library.prototype._addBooks = function(){
   var aVals = this._getArrayValues();
@@ -153,7 +145,7 @@ return arr2;
 }
 
 library.prototype._addForm = function(){
-  this.$formWrapper.append(this._formHTML);
+  $("div.forms").append(this._formHTML);
 };
 
 library.prototype._formHTML = function(){
@@ -168,22 +160,67 @@ library.prototype._formHTML = function(){
     '</div>' + '</form>';
 };
 
+
+library.prototype._removeBookByTitle = function() {
+  var title = $(".rtitle").val();
+
+    for (var i = this.myBookArray.length-1; i >=0; i--) {
+        if (title == this.myBookArray[i].title) {
+            //remove 1 book starting at index i
+            this.myBookArray.splice([i],1);
+            $("#results").replaceWith("<li id='results' class='display'> Removed" + title + " from the library. </li>");
+            return this._showBooks();
+        }
+    }   //complete the loop before returning false
+        $("#results").replaceWith("Sorry, that book is not in the library!");
+};
+
+library.prototype._removeBookByAuthor = function() {
+  var author = $(".rauthor").val();
+
+    for (var i = this.myBookArray.length-1; i >=0; i--) {
+        if (author == this.myBookArray[i].author) {
+            //remove 1 book starting at index i
+            this.myBookArray.splice([i],1);
+            $("#results").replaceWith("<li id='results' class='display'> Removed " + author + " from the library. </li>");
+
+        }
+    }   return this._showBooks();
+
+
+};
+
+
 library.prototype._getRandomBook = function () {
+
     if (this.myBookArray.length) {
         var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
-        return randomBook;
-        $("#results").append("<li>" + title.val() + ": " +  author.val()  + ", " + numberOfPages.val() + ", " + publishDates.val() + "." + "</li>");
-    } return null;
+        $("#results").replaceWith("<li id='results'><strong>" + randomBook.title + "</strong>: " +  "<em>" + randomBook.author + "</em>" + ", " + randomBook.numberOfPages + ", " + "&copy;" + randomBook.publishDates.getFullYear() + "</li>");
+        return;
+    }
+     $("#results").replaceWith("Sorry, no books in the library!");
 };
+
+library.prototype._getRandomAuthor = function () {
+
+    if (this.myBookArray.length) {
+        var randomNumber = Math.floor(Math.random() * (this.myBookArray.length));
+        $("#results").replaceWith("<li id='results'>" + this.myBookArray[randomNumber].author + "</li>");
+        return;
+    } $("#results").replaceWith("Sorry, no books in the library!");
+};
+
+
+
 
 var gnewLibrary = new library();
 
-var gbook1 = ["1987","George Orwell", 3, "1986/03/25"];
-var gbook2 = ["Duck Farm","George Orwell", 3, "1986/01/20"];
-var gbook3 = ["The Crucible","Arther Miller", 3, "1886/04/20"];
-var gbook4 = ["Bling Money","George Orwell", 3, "1987/04/01"];
+var gbook1 = ["1987","George Orwell", 3, "1944/03/25"];
+var gbook2 = ["Duck Farm","George Orwell", 3, "1902/01/20"];
+var gbook3 = ["The Crucible","Arthur Miller", 3, "1852/04/20"];
+var gbook4 = ["Bling Money","George Orwell", 3, "1999/04/01"];
 var gbook5 = ["Zen and the Art of Motorcycle Maintenance","Robert M. Persig", 3, "1986/11/15"];
-var gbook6 = ["The Crucified Church","Joel L. Rissinger", 500, "2010/02/01"];
+var gbook6 = ["The Crucified Church","Joel L. Rissinger", 500, "2011/02/01"];
 var gbook7 = ["The Social Meaning of Money: Pin Money, Paychecks, Poor Relief, and Other Currencies", "Viviana A. Zelizer", 420,"1997/08/30"];
 
 
@@ -191,9 +228,9 @@ library.prototype.addBooksOnPageLoad = function(){
     this._addBook(gbook1);
     this._addBook(gbook2);
     this._addBook(gbook3);
-    // this.gnewLibrary.addBook(gbook4);
-    // this.gnewLibrary.addBook(gbook6);
-    // this.gnewLibrary.addBook(gbook7);
+    this._addBook(gbook4);
+    this._addBook(gbook6);
+    this._addBook(gbook7);
 };
 
 $(function(){

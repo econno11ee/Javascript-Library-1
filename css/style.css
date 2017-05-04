@@ -69,10 +69,24 @@
    display: flex;
  }
 
- .results {
-   border-right: solid;
-   border-color: #fafafa;
-   border-sizing: border-box;
+.results {
+  border-right: solid;
+  border-color: #fafafa;
+  border-spacing: border-box;
+  text-align: center;
+}
+
+.results-window {
+  padding-top: 125px;
+}
+
+ #results {
+   text-align: center;
+   font-size: 36px;
+ }
+
+ .results ul{
+   padding-top: 150px;
  }
 
  .output {
@@ -85,6 +99,7 @@
    color: #262228;
    min-height: 100%;
    align-items: stretch;
+   overflow: scroll;
  }
 
  #library {
@@ -139,4 +154,8 @@
 
  .pages {
    text-decoration: italic;
+ }
+
+ .display {
+   font-size: 20px;
  }
