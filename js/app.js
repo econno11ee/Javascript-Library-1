@@ -102,16 +102,12 @@ library.prototype._showBooks = function(){
 	});
 };
 
-library.prototype._addBook = function (a) {
-
-    var aVals = a;
-    	if (aVals.length >= 4){
-
-    		var book = new newBook(aVals[0], aVals[1], aVals[2], aVals[3]);
-
-            for(var i = 0; i < this.myBookArray.length; i++){
-                if(this.myBookArray[i].title == book.title) {
-                    alert("Book already exists.");
+library.prototype._addBook = function (books) {
+    if (books.length >= 4){
+        var book = new newBook(books[0], books[1], books[2], books[3]);
+        for(var i = 0; i < this.myBookArray.length; i++){
+            if(this.myBookArray[i].title == book.title) {
+                    $("#results").replaceWith("<li id='results'>This books is already in the library!</li>");
     				        return false;
                 }
             }
@@ -123,26 +119,21 @@ library.prototype._addBook = function (a) {
 
 
 library.prototype._addBooks = function(){
-  var aVals = this._getArrayValues();
-	for(var i=0; i < aVals.length; i++){
-		this._addBook(aVals[i]);
-	}
+    var inputs=[], books = [], len;
+    $.each($(".aBooks input"),function(Index, val){
+        var vInput = $(this).val();
+		    inputs.push(vInput);
+  });
+    len = (inputs.length/4)-1;
+
+    for(var i = 0; i <= len; i++){
+        books.push(inputs.splice(0,4));
+    }
+    for(var j=0; j < books.length; j++){
+		    this._addBook(books[j]);
+	     }
 };
 
-library.prototype._getArrayValues = function (){
-  var books=[], arr2 = [], len;
-  $.each($(".aBooks input"),function(Index, val){
-        var vInput = $(this).val();
-		    books.push(vInput);
-  });
-
-  len = (books.length/4)-1;
-
-for(var i = 0; i <= len; i++){
-  arr2.push(books.splice(0,4));
-}
-return arr2;
-}
 
 library.prototype._addForm = function(){
   $("div.forms").append(this._formHTML);
@@ -168,7 +159,7 @@ library.prototype._removeBookByTitle = function() {
         if (title == this.myBookArray[i].title) {
             //remove 1 book starting at index i
             this.myBookArray.splice([i],1);
-            $("#results").replaceWith("<li id='results' class='display'> Removed" + title + " from the library. </li>");
+            $("#results").replaceWith("<li id='results'> Removed" + title + " from the library. </li>");
             return this._showBooks();
         }
     }   //complete the loop before returning false
