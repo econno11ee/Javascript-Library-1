@@ -102,41 +102,58 @@ library.prototype._showBooks = function(){
 	});
 };
 
-library.prototype._addBook = function (books) {
-    booksAdded =[]
-    if (books.length >= 4){
-        var book = new newBook(books[0], books[1], books[2], books[3]);
+library.prototype._addBook = function (book) {
+    // var book = new newBook(book[0], book[1], book[2], book[3]);
+    // if (book.length >= 4){
         for(var i = 0; i < this.myBookArray.length; i++){
             if(this.myBookArray[i].title == book.title) {
-                $("#results").replaceWith("<li id='results'>" + book.title + " is already in the library!</li>");
     				    return false;
+
                 }
-            }
+            } console.log(book);
             this.myBookArray.push(book);
-            booksAdded.push(book.title);
-            return this._showBooks();
-        }
-};
+            return true;
+        };
 
 
 
-library.prototype._addBooks = function(){
-    var inputs=[], books = [], len;
-    $.each($(".aBooks input"),function(Index, val){
-        var vInput = $(this).val();
-		    inputs.push(vInput);
-  });
-    len = (inputs.length/4)-1;
 
-    for(var i = 0; i <= len; i++){
-        books.push(inputs.splice(0,4));
-    }
-    for(var j=0; j < books.length; j++){
-		    this._addBook(books[j]);
-        _self =this;
-        $("#results").append("<li id='results'>" + _self.booksAdded + " were added to the library!</li>");
-	     }
-};
+// library.prototype._addBooks = function(){
+//     var books = [];
+//     var booksAdded = [];
+//     var notAdded = [];
+//     $.each($(".forms form"),function(Index, val){
+//         var $form = $(this);
+//         var title = $form.find(".title").val();
+//         var author = $form.find(".author").val();
+//         var page = $form.find(".pages").val();
+//         var date = $form.find(".date").val();
+//
+//         books.push(new newBook(title, author, page, date));
+//   });
+//
+//     for(var j=0; j < books.length; j++){
+//         var bookTitle = books[j].title;
+//         if(this._addBook(books[j])){
+//           booksAdded.push(bookTitle);
+//           console.log(booksAdded);
+//         } else {
+//           notAdded.push(bookTitle);
+//         }
+// 	  }
+//
+//     if(notAdded.length){
+//         var stringTitle = [];
+//         for(var p = 0; p < notAdded.length; p++){
+//           stringTitle.push(notAdded[p]);
+//         }
+//         $("#results").append("<li id='results'>" + stringTitle.join("") + " are already in the library.</li>");//use stringTitle im message to display book titles in message
+//       } else {
+//           $("#results").append("<li id='results'>All books were added to the library.</li>");
+//       } //display message that all books were added
+//       return this._showBooks();
+// };
+
 
 
 library.prototype._addForm = function(){
