@@ -71,32 +71,42 @@ library.prototype._addBooks = function(){
         var $form = $(this);
         var title = $form.find(".title").val();
         var author = $form.find(".author").val();
-        var page = $form.find(".pages").val();
+        var pages = $form.find(".pages").val();
         var date = $form.find(".date").val();
 
-        books.push(new newBook(title, author, page, date));
-  });
+        books.push(new newBook(title, author, pages, date));
+
+  }); console.log(books)
+
 
     for(var j=0; j < books.length; j++){
         var bookTitle = books[j].title;
         if(this._addBook(books[j])){
           booksAdded.push(bookTitle);
-          console.log(booksAdded);
         } else {
           notAdded.push(bookTitle);
         }
-	  }
+	}
 
-    if(notAdded.length){
-        var stringTitle = [];
-        for(var p = 0; p < notAdded.length; p++){
-          stringTitle.push(notAdded[p]);
-        }
-        $("#results").append("<li id='results'>" + stringTitle.join("") + " are already in the library.</li>");//use stringTitle im message to display book titles in message
-      } else {
-          $("#results").append("<li id='results'>All books were added to the library.</li>");
-      } //display message that all books were added
-      return this._showBooks();
+  if (notAdded.length == 1) {
+      $("#results").append("<li id='results'>" + notAdded[0] + " is already in the library.</li>");
+  } else if (notAdded.length > 1){
+      var stringTitle1 = [];
+      var stringTitle2 = [];
+      var notAdded1 = notAdded.slice(0,-1);
+      var notAdded2 = notAdded.slice(-1);
+      for(var p = 0; p < notAdded1.length; p++){
+          stringTitle1.push(notAdded1[p]);
+    }
+    for(var p = 0; p < notAdded2.length; p++){
+        stringTitle2.push(notAdded2[p]);
+  }
+    $("#results").append("<li id='results'> <span class='title'>" + stringTitle1.join("</span> ,  <span class='title'>") + " and" + stringTitle2.join(" ") + " are already in the library.</li>");
+  }
+      // } else {
+      //     $("#results").append("<li id='results'>All books were added to the library.</li>");
+      // } //display message that all books were added
+      // return this._showBooks();
 };
 
 
@@ -108,12 +118,12 @@ library.prototype._addForm = function(){
 library.prototype._formHTML = function(){
   return '<br /><p>Book ' + ($("form.add-books").length + 1) + '</p><form class="form-inline add-books">'
   + '<div class="form-group aBooks">' +
-    '<input type="text" class="form-control input-space" placeholder="title">' +
-    '<input type="text" class="form-control input-space" placeholder="author">' +
+    '<input type="text" class="form-control input-space title" placeholder="title">' +
+    '<input type="text" class="form-control input-space author" placeholder="author">' +
     '</div>' +
     '<div class="form-group aBooks">' +
-    '<input type="number" class="form-control input-space" placeholder="# of pages">' +
-    '<input type="date" class="form-control input-space" placeholder="Publish Date">' +
+    '<input type="number" class="form-control input-space pages" placeholder="# of pages">' +
+    '<input type="date" class="form-control input-space date" placeholder="Publish Date">' +
     '</div>' + '</form>';
 };
 
