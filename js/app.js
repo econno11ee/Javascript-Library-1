@@ -43,7 +43,7 @@ library.prototype._bindEvents = function(){
 library.prototype._showBooks = function(){
 	$("#library").empty();
 	this.myBookArray.forEach(function(book){
-	$("#library").append("<li class='display'><strong>" + book.title + "</strong>: " +  "<em>" + book.author + "</em>" + ", " + book.numberOfPages + ", " + "&copy;" + book.publishDates.getFullYear() + "</li>");
+	$("#library").append("<li class='display'><span class='title'>" + book.title + "</span>: " +  "<em>" + book.author + "</em>" + ", " + book.numberOfPages + ", " + "&copy;" + book.publishDates.getFullYear() + "</li>");
 	});
 };
 
@@ -86,7 +86,7 @@ library.prototype._addBooks = function(){
 	}
     this._showResults1(notAdded);
     this._showResults2(booksAdded);
-    return this._showBooks;
+    return this._showBooks();
 };
 
 library.prototype._showResults1 = function(titles) {
