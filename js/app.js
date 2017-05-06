@@ -75,10 +75,7 @@ library.prototype._addBooks = function(){
         var date = $form.find(".date").val();
 
         books.push(new newBook(title, author, pages, date));
-
-  }); console.log(books)
-
-
+  });
     for(var j=0; j < books.length; j++){
         var bookTitle = books[j].title;
         if(this._addBook(books[j])){
@@ -87,29 +84,40 @@ library.prototype._addBooks = function(){
           notAdded.push(bookTitle);
         }
 	}
-
-  if (notAdded.length == 1) {
-      $("#results").append("<li id='results'>" + notAdded[0] + " is already in the library.</li>");
-  } else if (notAdded.length > 1){
-      var stringTitle1 = [];
-      var stringTitle2 = [];
-      var notAdded1 = notAdded.slice(0,-1);
-      var notAdded2 = notAdded.slice(-1);
-      for(var p = 0; p < notAdded1.length; p++){
-          stringTitle1.push(notAdded1[p]);
-    }
-    for(var p = 0; p < notAdded2.length; p++){
-        stringTitle2.push(notAdded2[p]);
-  }
-    $("#results").append("<li id='results'> <span class='title'>" + stringTitle1.join("</span> ,  <span class='title'>") + " and" + stringTitle2.join(" ") + " are already in the library.</li>");
-  }
-      // } else {
-      //     $("#results").append("<li id='results'>All books were added to the library.</li>");
-      // } //display message that all books were added
-      // return this._showBooks();
+    this._showResults1(notAdded);
+    this._showResults2(booksAdded);
+    return this._showBooks;
 };
 
+library.prototype._showResults1 = function(titles) {
+  if (titles.length == 1) {
+      $("#results").append("<li id='results'> span class='title'>" + titles[0] + "</span> is already in the library.</li>");
+  } else if (titles.length == 2){
+      $("#results").append("<li id='results'> <span class='title'>" + titles[0] + "</span> and <span class='title'>" + titles[1] + "</span> are already in the library.</li>");
+  } else if (titles.length > 2){
+      var stringTitle = [];
+      var titles1 = titles.slice(0,-1);
+      for(var p = 0; p < titles1.length; p++){
+          stringTitle.push(titles1[p]);
+    }
+    $("#results").append("<li id='results'> <span class='title'>" + stringTitle.join("</span> ,  <span class='title'>") + "</span>, and " + "<span class='title'>" + titles[titles.length-1] + "</span> are already in the library.</li>");
+  }
+};
 
+library.prototype._showResults2 = function(titles) {
+  if (titles.length == 1) {
+      $("#results").append("<li id='results'><span class='title'>" + titles[0] + "</span> was added to the library.</li>");
+  } else if (titles.length == 2){
+      $("#results").append("<li id='results'> <span class='title'>" + titles[0] + "</span> and <span class='title'>" + titles[1] + "</span> were added to the library.</li>");
+  } else if (titles.length > 2){
+      var stringTitle = [];
+      var titles1 = titles.slice(0,-1);
+      for(var p = 0; p < titles1.length; p++){
+          stringTitle.push(titles1[p]);
+    }
+    $("#results").append("<li id='results'> <span class='title'>" + stringTitle.join("</span> ,  <span class='title'>") + "</span>, and " + "<span class='title'>" + titles[titles.length-1] + "</span> were added to the library.</li>");
+  }
+};
 
 library.prototype._addForm = function(){
   $("div.forms").append(this._formHTML);

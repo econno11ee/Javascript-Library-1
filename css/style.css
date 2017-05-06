@@ -130,6 +130,10 @@
    background-color: #037584;
  }
 
+ .form-control {
+   max-width: 135px;
+ }
+
  .btn-default {
    border-style: none;
    border-color: #262228;
@@ -140,7 +144,7 @@
  }
 
  .btn-space, .input-space {
-   margin: 5px 5px 5px 10px;
+   margin: 5px 2px 5px 2px;
  }
 
  .btn-link {
@@ -150,6 +154,7 @@
 
  .title {
    text-decoration: underline;
+   width: 100px;
  }
 
  .pages {
