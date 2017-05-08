@@ -26,6 +26,11 @@ library.prototype.init = function(){
   this._bindEvents();
   this.addBooksOnPageLoad();
   this._showBooks();
+  $(".stuff-to-search").hide();
+  $(".show-search").on('click', function() {
+  $(".stuff-to-search").slideToggle(400);
+  $(this).toggleClass("active");
+});
 };
 
 library.prototype._bindEvents = function(){
@@ -38,7 +43,11 @@ library.prototype._bindEvents = function(){
   $("button.randomB").on("click", $.proxy(this._getRandomBook, this));
   $("button.submit").on("click", $.proxy(this._addBooks, this));
   $("button.add-forms").on("click", $.proxy(this._addForm, this));
+  // $("#results").slideDown();
+
 };
+
+
 
 library.prototype._showBooks = function(){
 	$("#library").empty();
@@ -171,9 +180,11 @@ library.prototype._getRandomBook = function () {
     if (this.myBookArray.length) {
         var randomBook = this.myBookArray[Math.floor(Math.random() * (this.myBookArray.length))];
         $("#results").replaceWith("<li id='results'><strong>" + randomBook.title + "</strong>: " +  "<em>" + randomBook.author + "</em>" + ", " + randomBook.numberOfPages + ", " + "&copy;" + randomBook.publishDates.getFullYear() + "</li>");
+        $("li#results").slideDown("slow");
         return;
     }
      $("#results").replaceWith("Sorry, no books in the library!");
+
 };
 
 library.prototype._getRandomAuthor = function () {
